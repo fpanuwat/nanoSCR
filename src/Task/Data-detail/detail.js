@@ -1,0 +1,193 @@
+import React, { Component } from 'react';
+//import stageD from './stageDetail';
+
+class detail extends Component{
+    state={
+        job:[],
+        stage:[]
+    }
+    componentWillMount() {
+        const userId =this.props.data.job_number;
+        fetch('http://localhost:3001/api/loadStage/'+userId)
+        .then((response) => response.json())
+        .then(List => {
+            console.log(List);
+            this.setState({ stage: List });
+            
+        });
+        
+    } 
+    render(){
+     const daten1 = new Date(this.props.data.start_date);
+          const  date1 = daten1.toLocaleDateString('th-TH', {
+            year: 'numeric',
+            month: 'long',
+            day: 'numeric',
+          });
+          const daten2 = new Date(this.props.data.end_date);
+          const  date2 = daten2.toLocaleDateString('th-TH', {
+            year: 'numeric',
+            month: 'long',
+            day: 'numeric',
+          });
+          const daten3 = new Date(this.props.data.report_date);
+          const  date3 = daten3.toLocaleDateString('th-TH', {
+            year: 'numeric',
+            month: 'long',
+            day: 'numeric',
+          });
+          const daten4 = new Date(this.props.data.acc_date);
+          const  date4 = daten4.toLocaleDateString('th-TH', {
+            year: 'numeric',
+            month: 'long',
+            day: 'numeric',
+          });
+       
+
+        return(
+           <div>
+                       
+                            <table className="table table-bordered">
+                                <thead  class="thead-light">
+                                    <tr>
+                                        <th>ทะเบียนรถ</th>
+                                        <th>ประเภทรถ</th>
+                                        <th>ยี่ห้อ</th>
+                                        <th>รุ่นรถ</th>
+                                        <th>หมายเลขตัวถัง</th>
+                                        <th>หมายเลขกิโล</th>
+                                        <th>ระดับความเสียหาย</th>
+                                        <th>สีรถเดิม</th>
+                                        <th>สีรถที่พ่น</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>{this.props.data.car_number}</td>
+                                        <td>{this.props.data.car_type}</td>
+                                        <td>{this.props.data.bran}</td>
+                                        <td>{this.props.data.serie}</td>
+                                        <td>{this.props.data.model_number}</td>
+                                        <td>{this.props.data.kilo_numb}</td>
+                                        <td>{this.props.data.damage}</td>
+                                        <td>{this.props.data.color}</td>
+                                        <td>{this.props.data.n_color}</td>
+
+                                    </tr>
+                                </tbody>
+                            </table>
+
+                            <table className="table table-bordered">
+                            <thead  class="thead-light">
+                                <tr>
+                                    <th>ชื่อลูกค้า</th>
+                                    <th>เลขบัตรประจำตัวประชาชน</th>
+                                    <th>เลขบัตรใบขับขี่</th>
+                                    <th>ที่อยู่</th>
+                                    <th>เบอร์โทรศัพท์</th>
+                                    
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>{this.props.data.c_name}</td>
+                                    <td>{this.props.data.id_customer}</td>
+                                    <td>{this.props.data.c_card_number}</td>
+                                    <td>{this.props.data.address}</td>
+                                    <td>{this.props.data.c_tel}</td>
+                                </tr>
+                            </tbody>
+                            </table>
+                            <table className="table table-bordered">
+                                <thead  class="thead-light">
+                                    <tr>
+                                        <th>วันที่เข้าซ่อม</th>
+                                        <th>วันที่นัดรับ</th>
+                                        <th>ผู้รับรายงาน</th>
+                                        <th>ผู้รับรถเข้าซ่อม</th>
+                                        <th>ผู้นำรถเข้าซ่อม</th>
+                                        <th>เบอร์ติดต่อ</th>
+                                        <th>วันที่อู่ออกรายงาน</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        
+                                        <td>{date1}</td>
+                                        <td>{date2}</td>
+                                        <td>{this.props.data.rep_name}</td>
+                                        <td>{this.props.data.re_name}</td>
+                                        <td>{this.props.data.c_name}</td>
+                                        <td>{this.props.data.i_tel}</td>
+                                        <td>{this.props.data.date_time}</td>
+                                    </tr>
+                                </tbody>
+                                </table>
+                                <table className="table table-bordered">
+                                <thead  class="thead-light">
+                                <tr>
+                                    <th>บริษัทประกัน</th>
+                                    <th>สาขา</th>
+                                    <th>หมายเลขกรมธรรม์</th>
+                                    <th>ประเภทกรมธรรม์</th>
+                                    <th>เลขที่เคลม</th>
+                                    <th>วงเงินคุ้มครอง</th>
+                                    <th>เลขที่แจ้งอุบัติเหตุ</th>
+                                    <th>วันที่แจ้งอุบัติเหตุ</th>
+                                    <th>วันที่เกิดอุบัติเหตุ</th>
+                                    <th>เบอร์โทรศัพท์</th>
+                                    <th>เบอร์แฟกซ์</th>
+                                </tr></thead>
+                                <tbody>
+                                <tr>
+                                    <td>{this.props.data.insurance}</td>
+                                    <td>{this.props.data.sub_insurance}</td>
+                                    <td>{this.props.data.ins_number}</td>
+                                    <td>{this.props.data.ins_type}</td>
+                                    <td>{this.props.data.clam_number}</td>
+                                    <td>{this.props.data.limit_amount}</td>
+
+                                    <td>{this.props.data.acc_number}</td>
+                                
+                                    <td>{date3}</td>
+                                
+                                    <td>{date4}</td>
+                                
+                                    <td>{this.props.data.ins_tel}</td>
+                                
+                                    <td>{this.props.data.ins_fax}</td>
+                                </tr></tbody>
+                                </table>  
+                                <table className="table table-bordered">
+                                <thead  class="thead-light">
+                                    <tr>
+                                        <th>กระบวการซ่อม</th>
+                                        <th>รายละเอียด</th>
+                                        <th>พนักงาน</th>
+                                        <th>วันที่ทำการซ่อม</th>
+                                    </tr>
+                                </thead>
+                                {
+                                    
+                                    this.state.stage.map(items =>(
+                                        <tbody className="col-12 col-sm-6 col-lg-4 mt-3 " key={items.id}>
+                                            <tr>
+                                                <td>{items.detail}</td>
+                                                <td>{items.comment}</td>
+                                                
+                                                <td>{items.emp_name}</td>
+                                                <td>{items.date_time.substring(0,10)}</td>
+                                            </tr>
+                                            
+                                        </tbody>
+                                    ))
+                                }
+                       
+                                </table>
+                                </div>
+     
+        )
+    }
+    
+}
+export default detail;
